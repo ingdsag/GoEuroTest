@@ -29,6 +29,7 @@
                 }).then(function successCallback(response) {
                     if (response.status === 200) {
                         $scope.userName = $scope.searchValue;
+                        response.data = $scope.parseDates(response.data);
                         $scope.searchData = response.data;
                     }
                 }, function errorCallback(response) {
@@ -41,6 +42,18 @@
 
             }
 
+        };
+        $scope.parseDates = function(response) {
+            for (var i = 0; i < response.length; i++) {
+                var newCreated = new Date(response[i].created_at);
+                newCreated = newCreated.getDate() + '/' + newCreated.getMonth() + '/' + newCreated.getFullYear();
+                var newUpdated = new Date(response[i].updated_at);
+                newUpdated = newUpdated.getDate() + '/' + newUpdated.getMonth() + '/' + newUpdated.getFullYear();
+                response[i].created_at = newCreated;
+                response[i].updated_at = newUpdated;
+               // console.log(response.data[0].updated_at);
+            }
+            return response;
         };
         $scope.showError = function(errorMsg) {
             var alertElement = angular.element(document.querySelector(".alert.alert-danger"));

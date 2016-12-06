@@ -39,6 +39,14 @@ html, body {
 .content-wrapper {
   min-height: 100%;
 }
+.repo-author {
+  float: right;
+  a {
+      img {
+        width: 120px;
+      }
+  }
+}
 footer a, nav a {
   color: $primary-font-color !important;
 }

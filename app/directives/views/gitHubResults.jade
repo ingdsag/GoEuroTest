@@ -1,0 +1,25 @@
+div
+    div Repositories:
+        div.respository(ng-repeat="singleData in gitHubData")
+            h2.repo-name
+                a(href='{{singleData.html_url}}', target='_blank') {{singleData.name}}
+            div.repo-author
+                a(href='{{singleData.owner.html_url}}', target='_blank')
+                    img(src='{{singleData.owner.avatar_url}}')
+            div.repo-clone
+                strong Clone at:
+                span  {{singleData.clone_url}}
+            div.repo-default-branch
+                strong Default Branch:
+                span  {{singleData.default_branch}}
+            div.repo-description
+                strong Description:
+                span  {{singleData.description}}
+            div.dates
+                span.repo-created
+                strong Created at:
+                span  {{singleData.created_at}} -
+                span.repo-updated  Updated at: {{singleData.updated_at}}
+            br
+            br
+            br

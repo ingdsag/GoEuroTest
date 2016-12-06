@@ -13,7 +13,7 @@ div.col-sm-12
     h4.user-name(ng-show = 'userName != ""') User: {{userName}}
     div.repo-placeholder
         p(ng-if = 'searchData === ""') Search for any user at github to view a list of their repositories.
-        div(search-result, ng-if = 'searchData !== ""')
+        div(git-hub-results, git-hub-data = 'searchData', ng-if = 'searchData !== ""')
 
 div.clearfix
 a(href='#/')
