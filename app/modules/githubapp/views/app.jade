@@ -1,0 +1,21 @@
+.page-header
+    h1 My CV
+div.col-sm-5
+    p.lead Please input a github username:
+div.col-sm-5
+    input.form-control(type='text', ng-model='searchValue')
+div.col-sm-2
+    button.btn.btn-primary(ng-click='searchClicked()') Search
+div.clearfix
+
+div.col-sm-12
+    div.alert.alert-danger(ng-show = 'alertMessage !== ""') {{alertMessage}}
+    h4.user-name(ng-show = 'userName != ""') User: {{userName}}
+    div.repo-placeholder
+        p(ng-if = 'searchData === ""') Search for any user at github to view a list of their repositories.
+        div(search-result, ng-if = 'searchData !== ""')
+
+div.clearfix
+a(href='#/')
+    button.btn.btn-primary Go Back.
+

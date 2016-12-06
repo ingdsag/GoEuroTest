@@ -1,0 +1,19 @@
+{
+  "name": "series",
+  "description": "Series",
+  "main": "index.js",
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-touch": "^1.5.8",
+    "angular-route": "1.5.9"
+  }
+}

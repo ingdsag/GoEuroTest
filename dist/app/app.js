@@ -1,0 +1,152 @@
+
+(function() {
+    'use strict';
+    var app = angular.module('app', ['ngRoute', 'ngTouch']);
+
+    app.config(function ($routeProvider) {
+
+        $routeProvider.when('/', {
+            templateUrl: 'pages/index.html',
+            activeTab: 'index',
+            controller: 'IndexController'
+        }).when('/app/', {
+            templateUrl: 'pages/app.html',
+            activeTab: 'app',
+            controller: 'GithubAppController'
+        })
+    });
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('MainController', MainController);
+
+    MainController.$inject = ['$scope', '$rootScope', '$route', 'viewService'];
+
+    function MainController($scope, $rootScope, $route, viewService) {
+        /*$rootScope.vm = {};
+        var mobileMenuVisible = false;
+        var mobileMenuAnimating = false;*/
+        
+        /*$rootScope.vm.menuPageChanged = function(newPage) {
+            $rootScope.vm.toggleMobileMenu();
+        };*/
+        
+        /*$rootScope.vm.toggleMobileMenu = function() {
+            if (!mobileMenuAnimating) {
+                mobileMenuAnimating = true;
+                var leftValue = "0";
+                var opacity = "1";
+                if (mobileMenuVisible) {
+                    leftValue = "100%";
+                    opacity = "0";
+                }
+
+                $('.mobile-nav').animate({
+                    opacity: opacity,
+                    left: leftValue
+                }, 300, function() {
+                    mobileMenuAnimating = false;
+                });
+                mobileMenuVisible = !mobileMenuVisible;
+            }
+        };*/
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app')
+        .factory('viewService', ['$timeout', '$rootScope', '$route', '$window',  function($timeout, $rootScope, $route, $window) {
+            var factory = {};
+            
+            factory.initView = function() {
+                var fadeElement = angular.element(document.querySelector(".fade-element"));
+                fadeElement.removeClass( "fade-in-frame" );
+                $timeout(function() {
+                    fadeElement.addClass( "fade-in-frame" );
+                    $window.scrollTo(0, 0);
+                }, 100);
+                
+                $rootScope.toggleMobileMenu = function() {
+                    console.log('menuToggle');
+                };
+                
+            };
+            return factory;
+        }]);
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('GithubAppController', GithubAppController);
+
+    GithubAppController.$inject = ['$scope', 'viewService', '$timeout', '$http'];
+
+    function GithubAppController($scope, viewService, $timeout, $http) {
+        $scope.searchValue = 'goeuro';
+        $scope.alertMessage = '';
+        $scope.userName = '';
+        $scope.searchData = '';
+
+
+
+        viewService.initView();
+        $scope.searchClicked = function() {
+
+
+            if ($scope.searchValue === '') {
+                $scope.showError('Please input a valid github user in the search field.');
+            } else {
+                var urlLink = 'https://api.github.com/users/' + $scope.searchValue + '/repos';
+                $http({
+                    method: 'GET',
+                    url: urlLink
+                }).then(function successCallback(response) {
+                    if (response.status === 200) {
+                        $scope.userName = $scope.searchValue;
+                        $scope.searchData = response.data;
+                    }
+                }, function errorCallback(response) {
+                    if (response.status === 404) {
+                        $scope.showError('User not found, please verify that the user exists.');
+                    } else if(response.status === -1) {
+                        $scope.showError('Could not reach the URL, maybe you don\'t have connectivity?');
+                    }
+                });
+
+            }
+
+        };
+        $scope.showError = function(errorMsg) {
+            var alertElement = angular.element(document.querySelector(".alert.alert-danger"));
+            alertElement.addClass( "fade-in-frame-alert" );
+            $scope.alertMessage = errorMsg;
+            $timeout(function() {
+                alertElement.removeClass( "fade-in-frame-alert" );
+                $scope.alertMessage = '';
+            }, 3000);
+        };
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app')
+        .controller('IndexController', IndexController);
+
+    IndexController.$inject = ['$scope', '$rootScope', '$route', 'viewService'];
+
+    function IndexController($scope, $rootScope, $route, viewService) {
+        var vm = this;
+        viewService.initView();
+    }
+})();

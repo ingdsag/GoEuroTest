@@ -1,0 +1,10 @@
+doctype html
+html.ng-scope(ng-app="app", ng-controller="MainController")
+    include ./includes/head.jade
+    
+    body
+        div.fade-element.fade-in-frame
+
+        include ./includes/header.jade
+        div.container.content-wrapper(ng-view)
+        include ./includes/footer.jade
