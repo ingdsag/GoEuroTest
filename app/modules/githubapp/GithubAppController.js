@@ -29,6 +29,7 @@
                 }).then(function successCallback(response) {
                     if (response.status === 200) {
                         $scope.userName = $scope.searchValue;
+                        console.log(response.data);
                         response.data = $scope.parseDates(response.data);
                         $scope.searchData = response.data;
                     }

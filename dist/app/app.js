@@ -126,6 +126,20 @@
 
     angular
         .module('app')
+        .controller('IndexController', IndexController);
+
+    IndexController.$inject = ['$scope', '$rootScope', '$route', 'viewService'];
+
+    function IndexController($scope, $rootScope, $route, viewService) {
+        var vm = this;
+        viewService.initView();
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app')
         .controller('GithubAppController', GithubAppController);
 
     GithubAppController.$inject = ['$scope', 'viewService', '$timeout', '$http'];
@@ -152,6 +166,7 @@
                 }).then(function successCallback(response) {
                     if (response.status === 200) {
                         $scope.userName = $scope.searchValue;
+                        console.log(response.data);
                         response.data = $scope.parseDates(response.data);
                         $scope.searchData = response.data;
                     }
@@ -187,19 +202,5 @@
                 $scope.alertMessage = '';
             }, 3000);
         };
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app')
-        .controller('IndexController', IndexController);
-
-    IndexController.$inject = ['$scope', '$rootScope', '$route', 'viewService'];
-
-    function IndexController($scope, $rootScope, $route, viewService) {
-        var vm = this;
-        viewService.initView();
     }
 })();
