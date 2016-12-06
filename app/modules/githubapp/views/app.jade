@@ -3,7 +3,7 @@
 div.col-sm-5
     p.lead Please input a github username:
 div.col-sm-5
-    input.form-control(type='text', ng-model='searchValue')
+    input.form-control(type='text', ng-model='searchValue', ng-enter="searchClicked()")
 div.col-sm-2
     button.btn.btn-primary(ng-click='searchClicked()') Search
 div.clearfix

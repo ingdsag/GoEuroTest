@@ -5,7 +5,7 @@ div
                 a(href='{{singleData.html_url}}', target='_blank') {{singleData.name}}
             div.repo-author
                 a(href='{{singleData.owner.html_url}}', target='_blank')
-                    img(src='{{singleData.owner.avatar_url}}')
+                    img(ng-src='{{singleData.owner.avatar_url}}')
             div.repo-clone
                 strong Clone at:
                 span  {{singleData.clone_url}}
