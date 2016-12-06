@@ -15,5 +15,8 @@
   "dependencies": {
     "angular-touch": "^1.5.8",
     "angular-route": "1.5.9"
+  },
+  "devDependencies": {
+    "jasmine-core": "jasmine#^2.5.2"
   }
 }
